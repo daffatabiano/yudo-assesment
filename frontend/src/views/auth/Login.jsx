@@ -27,7 +27,13 @@ export default function Login() {
           message: `Welcome Back ${res.data.data.name} !`,
           status: 'success',
         });
-        localStorage.setItem('profile', JSON.stringify(res.data.data));
+        localStorage.setItem(
+          'profile',
+          JSON.stringify({
+            ...res.data.data,
+            token: res.data.token,
+          })
+        );
         setTimeout(() => {
           setNotif({});
           window.location.href = '/';

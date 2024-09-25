@@ -16,7 +16,7 @@ export default function useFetch(e_p) {
           },
         });
 
-        setData(res.data);
+        setData(res);
         setLoading(false);
       } catch (error) {
         setError(error);
