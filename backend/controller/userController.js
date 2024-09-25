@@ -1,5 +1,5 @@
 import User from '../models/userModel.js';
-import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export const getUsers = async (req, res) => {
   try {
@@ -37,12 +37,25 @@ export const Login = async (req, res) => {
     }
 
     const isMatch = password === user.password;
+    const token = jwt.sign(
+      { id: user.id },
+      'Eyhcsadkaskdjkasdka sdkjaskjdjaskasjk',
+      {
+        expiresIn: '1h',
+      }
+    );
 
     if (!isMatch) {
       return res.status(401).json({ message: `Password is incorrect` });
     }
 
-    res.status(201).json({ message: 'Login successful', user });
+    const data = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    };
+
+    res.status(201).json({ message: 'Login successful', data, token });
   } catch (error) {
     console.log(error.message);
   }

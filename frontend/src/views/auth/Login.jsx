@@ -14,28 +14,39 @@ export default function Login() {
   });
 
   const handleLogin = async () => {
-    const body = {
-      email: email,
-      password: password,
-    };
+    try {
+      const body = {
+        email: email,
+        password: password,
+      };
 
-    await login(body)
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          setNotif({
-            message: res.data.message,
-            status: 'success',
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setNotif({
-          message: err.response.data.message,
-          status: 'error',
-        });
+      const res = await axios.post('http://localhost:5000/login', body, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+
+    // await login(body)
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (res.status === 200) {
+    //       setNotif({
+    //         message: res.data.message,
+    //         status: 'success',
+    //       });
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     setNotif({
+    //       message: err.response.data.message,
+    //       status: 'error',
+    //     });
+    //   });
   };
 
   return (
