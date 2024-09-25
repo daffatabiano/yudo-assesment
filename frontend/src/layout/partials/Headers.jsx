@@ -1,5 +1,3 @@
-import useAuth from '../../hooks/useAuth';
-
 const headerLists = [
   {
     title: 'Home',
@@ -15,8 +13,24 @@ const headerLists = [
   },
 ];
 
+const styles = {
+  button: {
+    padding: '10px',
+    borderRadius: '5px',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    border: 'none',
+    textDecoration: 'none',
+  },
+};
+
 export default function Headers() {
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated = localStorage.getItem('profile');
+
+  const handleLogout = () => {
+    localStorage.removeItem('profile');
+    window.location.href = '/login';
+  };
 
   return (
     <header
@@ -47,17 +61,15 @@ export default function Headers() {
             </li>
           ))}
         </ul>
-        <a
-          type="button"
-          href="/login"
-          style={{
-            backgroundColor: '#007bff',
-            color: 'white',
-            padding: '10px',
-            borderRadius: '5px',
-          }}>
-          {!isAuthenticated ? 'Logout' : 'Login'}
-        </a>
+        {isAuthenticated ? (
+          <button onClick={handleLogout} style={styles.button} type="button">
+            logout
+          </button>
+        ) : (
+          <a type="button" href="/login" style={styles.button}>
+            {isAuthenticated ? 'Logout' : 'Login'}
+          </a>
+        )}
       </div>
     </header>
   );

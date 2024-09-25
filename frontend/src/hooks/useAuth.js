@@ -28,7 +28,7 @@ const useAuth = () => {
   };
 
   const isAuthenticated = () => {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('profile')) {
       return true;
     }
     return false;

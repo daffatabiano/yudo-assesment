@@ -22,6 +22,10 @@ export default function Register() {
           message: 'Registration successful !',
           status: 'success',
         });
+        setTimeout(() => {
+          setNotify({});
+          window.location.href = '/login';
+        }, 2000);
       } else {
         setNotify({
           message:

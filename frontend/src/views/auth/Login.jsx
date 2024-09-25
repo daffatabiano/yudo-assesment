@@ -28,6 +28,10 @@ export default function Login() {
           status: 'success',
         });
         localStorage.setItem('profile', JSON.stringify(res.data.data));
+        setTimeout(() => {
+          setNotif({});
+          window.location.href = '/';
+        }, 2000);
       } else {
         setNotif({
           message: res.response.data.message,
