@@ -17,6 +17,15 @@ export const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: '10px',
-    minHeight: '80vh',
+    minHeight: '70vh',
+  },
+  button: {
+    padding: '10px',
+    borderRadius: '5px',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    border: 'none',
+    cursor: 'pointer',
+    width: '100%',
   },
 };

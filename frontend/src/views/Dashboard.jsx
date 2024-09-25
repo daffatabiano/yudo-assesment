@@ -144,7 +144,7 @@ const cardItems = [
 ];
 
 export default function Dashboard() {
-  const { data, loading, error } = useFetch('products');
+  const { data } = useFetch('products');
 
   return (
     <LayoutDashbaord>
