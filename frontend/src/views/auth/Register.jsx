@@ -1,9 +1,29 @@
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
+import { Link, Navigate } from 'react-router-dom';
+
+const styles = {
+  input: {
+    width: '100%',
+    padding: '10px',
+    borderRadius: '5px',
+    border: '1px solid #ccc',
+  },
+  button: {
+    width: '100%',
+    padding: '10px',
+    borderRadius: '5px',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    border: 'none',
+    cursor: 'pointer',
+  },
+};
 
 export default function Register() {
   const { register } = useAuth();
   const [notify, setNotify] = useState({});
+
   const handleRegister = async (e) => {
     e.preventDefault();
     const body = {
@@ -11,25 +31,25 @@ export default function Register() {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    try {
-      await register(body)
-        .then((res) => {
-          if (res.status === 200) {
-            setNotify({
-              message: res.data.message,
-              status: 'success',
-            });
-          }
-        })
-        .catch((err) => {
+    await register(body)
+      .then((res) => {
+        if (res.status === 200) {
           setNotify({
-            message: err.response.data.message,
-            status: 'error',
+            message: res.data.message || 'Registration successful',
+            status: 'success',
           });
+          setTimeout(() => {
+            <Navigate to="/login" />;
+            setNotify({});
+          });
+        }
+      })
+      .catch((err) => {
+        setNotify({
+          message: err.response.data.message || 'Registration failed',
+          status: 'error',
         });
-    } catch (error) {
-      console.log(error);
-    }
+      });
   };
 
   return (
@@ -53,13 +73,16 @@ export default function Register() {
         onSubmit={handleRegister}
         style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <label htmlFor="name">Name</label>
-        <input type="text" name="name" />
+        <input type="text" name="name" style={styles.input} />
         <label htmlFor="email">email</label>
-        <input type="email" name="email" />
+        <input type="email" name="email" style={styles.input} />
         <label htmlFor="password">Password</label>
-        <input type="password" name="password" />
-        <button type="submit">Register</button>
+        <input type="password" name="password" style={styles.input} />
+        <button type="submit" style={styles.button}>
+          Register
+        </button>
       </form>
+      <Link to="/login">Already Have an Account?</Link>
     </div>
   );
 }
