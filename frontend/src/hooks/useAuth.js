@@ -3,7 +3,7 @@ import axios from 'axios';
 const useAuth = () => {
   const login = async (body) => {
     try {
-      const res = await axios.get('http://localhost:5000/login', body, {
+      const res = await axios.post('http://localhost:5000/login', body, {
         headers: {
           'Content-Type': 'application/json',
         },

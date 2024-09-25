@@ -39,10 +39,10 @@ export const Login = async (req, res) => {
     const isMatch = password === user.password;
 
     if (!isMatch) {
-      return res.status(401).json({ message: `${password} ${user.password}` });
+      return res.status(401).json({ message: `Password is incorrect` });
     }
 
-    res.status(201).json({ message: 'Login successful' });
+    res.status(201).json({ message: 'Login successful', user });
   } catch (error) {
     console.log(error.message);
   }
