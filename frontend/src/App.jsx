@@ -5,6 +5,7 @@ import Home from './views/Home';
 import Profile from './views/Profile';
 import Dashboard from './views/Dashboard';
 import Products from './views/Products';
+import ProductsDetails from './views/ProductDetails';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/products" element={<Products />} />
+        <Route path="/dashboard/product/:id" element={<ProductsDetails />} />
       </Routes>
     </Router>
   );
