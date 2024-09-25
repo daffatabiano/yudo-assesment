@@ -1,14 +1,17 @@
 import { Navigate } from 'react-router-dom';
-import { Login, Register } from '../pages/auth';
-import Home from '../pages/home';
+import Home from '../views/Home';
+import Login from '../views/auth/Login';
+import Register from '../views/auth/Register';
 
 export const routesLists = [
   {
     path: '/',
+    exact: true,
     element: <Home />, // Halaman Home
   },
   {
     path: '/login',
+    exact: true,
     element: <Login />, // Halaman login
   },
   {

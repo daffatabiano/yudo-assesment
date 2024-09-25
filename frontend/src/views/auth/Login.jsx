@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useAuth from '../../src/hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 export default function Login() {
   const { login } = useAuth();
@@ -34,7 +34,7 @@ export default function Login() {
   };
 
   return (
-    <div className="login">
+    <div style={{ padding: 20 }}>
       <p style={{ color: notif.status === 'success' ? 'green' : 'red' }}>
         {notif.message}
       </p>
