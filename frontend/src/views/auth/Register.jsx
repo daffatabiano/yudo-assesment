@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { styles } from './styles.auth';
 
 export default function Register() {

@@ -47,7 +47,7 @@ export default function Login() {
         );
         setTimeout(() => {
           setNotif({});
-          window.location.href = '/';
+          window.location.href = '/profile';
         }, 2000);
       } else {
         setNotif({

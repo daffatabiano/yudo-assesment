@@ -27,10 +27,10 @@ const cardItems = [
             <div
               style={{
                 position: 'absolute',
-                top: '5px',
-                right: '5px',
-                width: '20px',
-                height: '20px',
+                top: '15px',
+                right: '0px',
+                width: '10px',
+                height: '10px',
                 backgroundColor: colors,
                 borderRadius: '50%',
                 display: 'flex',
@@ -72,10 +72,10 @@ const cardItems = [
             <div
               style={{
                 position: 'absolute',
-                top: '5px',
-                right: '5px',
-                width: '20px',
-                height: '20px',
+                top: '15px',
+                right: '0px',
+                width: '10px',
+                height: '10px',
                 backgroundColor: colors,
                 borderRadius: '50%',
                 display: 'flex',
@@ -96,6 +96,9 @@ const cardItems = [
   {
     title: 'Active & Inactive Product',
     content: (item) => {
+      const colors = item?.map((item) =>
+        item.is_active ? '#00ff00' : '#ff0000'
+      );
       return (
         <div style={{ width: '100%' }}>
           <div
@@ -108,7 +111,19 @@ const cardItems = [
             <p>Active: {item?.filter((item) => item.is_active).length}</p>
             <p>Inactive: {item?.filter((item) => !item.is_active).length}</p>
           </div>
-          <div>
+          <div style={{ width: '100%', position: 'relative' }}>
+            <div
+              style={{
+                position: 'absolute',
+                top: '15px',
+                right: '0px',
+                width: '10px',
+                height: '10px',
+                backgroundColor: colors,
+                borderRadius: '50%',
+                display: 'flex',
+              }}
+            />
             <div
               style={{
                 display: 'flex',
@@ -159,7 +174,9 @@ export default function Dashboard() {
           flexWrap: 'wrap',
         }}>
         {cardItems.map((item, index) => (
-          <div key={index} style={{ ...styles.card, justifyContent: '' }}>
+          <div
+            key={index}
+            style={{ ...styles.card, justifyContent: '', overflow: 'auto' }}>
             <h3>{item.title}</h3>
             {item.content(data?.data)}
           </div>
