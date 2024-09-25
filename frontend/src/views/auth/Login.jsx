@@ -20,33 +20,19 @@ export default function Login() {
         password: password,
       };
 
-      const res = await axios.post('http://localhost:5000/login', body, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const res = await login(body);
       console.log(res);
+
+      if (res.status === 201) {
+        setNotif({
+          message: `Welcome Back ${res.data.data.name} !`,
+          status: 'success',
+        });
+        localStorage.setItem('profile', JSON.stringify(res.data.data));
+      }
     } catch (error) {
       console.log(error);
     }
-
-    // await login(body)
-    //   .then((res) => {
-    //     console.log(res);
-    //     if (res.status === 200) {
-    //       setNotif({
-    //         message: res.data.message,
-    //         status: 'success',
-    //       });
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setNotif({
-    //       message: err.response.data.message,
-    //       status: 'error',
-    //     });
-    //   });
   };
 
   return (
