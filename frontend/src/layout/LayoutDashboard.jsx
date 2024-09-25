@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 const dashboardLists = [
   {
     title: 'Dashboard',
-    link: '/',
+    link: '/dashboard',
   },
   {
     title: 'Products',
-    link: '/products',
+    link: '/dashboard/products',
   },
 ];
 
@@ -45,14 +45,29 @@ export default function LayoutDashbaord({ children }) {
             Portal-Jono
           </h1>
         </div>
-        <ul>
+        <ul
+          style={{
+            padding: '10px',
+            margin: '0',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+          }}>
           {dashboardLists.map((list, index) => (
-            <li key={index}>
-              <Link to={list.link}>{list.title}</Link>
+            <li style={{ listStyle: 'none', padding: '0' }} key={index}>
+              <Link
+                style={{ textDecoration: 'none', color: 'black' }}
+                to={list.link}>
+                {list.title}
+              </Link>
             </li>
           ))}
         </ul>
         <button
+          onClick={() => {
+            localStorage.removeItem('profile');
+            window.location.href = '/login';
+          }}
           type="button"
           style={{
             padding: '10px',
