@@ -6,6 +6,7 @@ const useAuth = () => {
       const res = await axios.post('http://localhost:5000/login', body, {
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
       });
       return res;

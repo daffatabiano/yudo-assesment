@@ -9,30 +9,31 @@ export default function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    const body = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      password: e.target.password.value,
-    };
-    await register(body)
-      .then((res) => {
-        if (res.status === 200) {
-          setNotify({
-            message: res.data.message || 'Registration successful',
-            status: 'success',
-          });
-          setTimeout(() => {
-            <Navigate to="/login" />;
-            setNotify({});
-          });
-        }
-      })
-      .catch((err) => {
+    try {
+      const body = {
+        name: e.target.name.value,
+        email: e.target.email.value,
+        password: e.target.password.value,
+      };
+      const res = await register(body);
+      console.log(res);
+      if (res.status === 201) {
         setNotify({
-          message: err.response.data.message || 'Registration failed',
+          message: 'Registration successful !',
+          status: 'success',
+        });
+      } else {
+        setNotify({
+          message: 'Sorry, Email has already been registered',
           status: 'error',
         });
+      }
+    } catch (error) {
+      setNotify({
+        message: error.response.data.message || 'Registration failed',
+        status: 'error',
       });
+    }
   };
 
   return (

@@ -66,7 +66,7 @@ export const createUser = async (req, res) => {
     await User.create(req.body);
     res.status(201).json({ message: 'User created' });
   } catch (error) {
-    console.log(error.message);
+    res.status(400).json({ message: 'Email already exist' });
   }
 };
 export const updateUser = async (req, res) => {

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { styles } from './styles.auth';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 export default function Login() {
   const { login } = useAuth();
