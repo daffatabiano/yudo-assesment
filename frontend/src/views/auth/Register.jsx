@@ -1,24 +1,7 @@
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { Link, Navigate } from 'react-router-dom';
-
-const styles = {
-  input: {
-    width: '100%',
-    padding: '10px',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-  },
-  button: {
-    width: '100%',
-    padding: '10px',
-    borderRadius: '5px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    border: 'none',
-    cursor: 'pointer',
-  },
-};
+import { styles } from './styles.auth';
 
 export default function Register() {
   const { register } = useAuth();
@@ -53,17 +36,7 @@ export default function Register() {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px',
-        minHeight: '100vh',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        padding: '0 10px',
-      }}>
+    <div style={styles.container}>
       <h1>Register</h1>
       <p style={{ color: notify.status === 'success' ? 'green' : 'red' }}>
         {notify.message}
@@ -71,7 +44,7 @@ export default function Register() {
       <form
         action="register-form"
         onSubmit={handleRegister}
-        style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        style={styles.form}>
         <label htmlFor="name">Name</label>
         <input type="text" name="name" style={styles.input} />
         <label htmlFor="email">email</label>

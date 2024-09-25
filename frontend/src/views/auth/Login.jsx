@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
+import { styles } from './styles.auth';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const { login } = useAuth();
@@ -34,29 +36,31 @@ export default function Login() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div style={styles.container}>
       <p style={{ color: notif.status === 'success' ? 'green' : 'red' }}>
         {notif.message}
       </p>
-      <form>
+      <h1>Login </h1>
+      <form style={styles.form}>
         <label htmlFor="">Name</label>
         <input
           type="text"
-          className=""
+          style={styles.input}
           placeholder="Enter your name"
           onChange={(e) => setEmail(e.target.value)}
         />
         <label htmlFor="">Password</label>
         <input
+          style={styles.input}
           type="text"
-          className=""
           placeholder="Enter your password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="button" onClick={handleLogin}>
+        <button style={styles.button} type="button" onClick={handleLogin}>
           Login
         </button>
       </form>
+      <Link to="/register">Don't have an account yet?</Link>
     </div>
   );
 }
