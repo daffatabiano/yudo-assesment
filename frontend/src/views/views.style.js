@@ -11,7 +11,7 @@ export const styles = {
     width: '300px',
     padding: '10px',
     borderRadius: '15px',
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+    boxShadow: '0 0 10px 2px rgba(1, 1, 1, 0.1)',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
