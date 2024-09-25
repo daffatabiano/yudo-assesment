@@ -19,8 +19,19 @@ export default function Login() {
         password: password,
       };
 
+      if (!body.email || !body.password) {
+        setNotif({
+          message: 'All fields are required',
+          status: 'error',
+        });
+
+        setTimeout(() => {
+          setNotif({});
+        }, 3000);
+        return;
+      }
+
       const res = await login(body);
-      console.log(res);
 
       if (res.status === 201) {
         setNotif({
@@ -51,10 +62,19 @@ export default function Login() {
 
   return (
     <div style={styles.container}>
-      <p style={{ color: notif.status === 'success' ? 'green' : 'red' }}>
-        {notif.message}
-      </p>
       <h1>Login </h1>
+      <p
+        style={{
+          color: 'white',
+          backgroundColor: notif.status === 'success' ? '#28a745' : '#dc3545',
+          padding: '10px',
+          borderRadius: '5px',
+          marginBottom: '10px',
+          textAlign: 'center',
+          display: notif.message ? 'block' : 'none',
+        }}>
+        {notif.message}{' '}
+      </p>
       <form style={styles.form}>
         <label htmlFor="">Email</label>
         <input

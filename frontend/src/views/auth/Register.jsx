@@ -15,6 +15,18 @@ export default function Register() {
         email: e.target.email.value,
         password: e.target.password.value,
       };
+
+      if (!body.name || !body.email || !body.password) {
+        setNotify({
+          message: 'All fields are required',
+          status: 'error',
+        });
+        setTimeout(() => {
+          setNotify({});
+        }, 2000);
+        return;
+      }
+
       const res = await register(body);
       console.log(res);
       if (res.status === 201) {
@@ -45,8 +57,17 @@ export default function Register() {
   return (
     <div style={styles.container}>
       <h1>Register</h1>
-      <p style={{ color: notify.status === 'success' ? 'green' : 'red' }}>
-        {notify.message}
+      <p
+        style={{
+          color: 'white',
+          backgroundColor: notify.status === 'success' ? '#28a745' : '#dc3545',
+          padding: '10px',
+          borderRadius: '5px',
+          marginBottom: '10px',
+          textAlign: 'center',
+          display: notify.message ? 'block' : 'none',
+        }}>
+        {notify.message}{' '}
       </p>
       <form
         action="register-form"

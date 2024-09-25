@@ -27,7 +27,7 @@ export default function Products() {
             Add Product
           </button>
         </div>
-        <div style={{ width: '100%', backgroundColor: 'red' }}>
+        <div style={{ width: '100%' }}>
           <div style={{ ...styles.card, minHeight: '40vh' }}>
             <p style={{ margin: '0', fontWeight: 'bold', textAlign: 'center' }}>
               Total : 0
@@ -48,7 +48,7 @@ export default function Products() {
                   right: '5px',
                   width: '20px',
                   height: '20px',
-                  backgroundColor: 'red',
+                  backgroundColor: '#ff0000',
                   borderRadius: '50%',
                   display: 'flex',
                 }}></div>

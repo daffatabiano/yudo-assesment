@@ -16,18 +16,15 @@ User.init(
     name: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      required: true,
     },
     email: {
       type: DataTypes.STRING(255),
       allowNull: false,
       unique: true,
-      required: true,
     },
     password: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      required: true,
     },
     created_at: {
       type: DataTypes.DATE,
