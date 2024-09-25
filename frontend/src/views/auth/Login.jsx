@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { styles } from './styles.auth';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Login() {
   const { login } = useAuth();
@@ -13,26 +14,39 @@ export default function Login() {
   });
 
   const handleLogin = async () => {
-    const body = {
-      email: email,
-      password: password,
-    };
+    try {
+      const body = {
+        email: email,
+        password: password,
+      };
 
-    await login(body)
-      .then((res) => {
-        if (res.status === 200) {
-          setNotif({
-            message: res.data.message,
-            status: 'success',
-          });
-        }
-      })
-      .catch((err) => {
-        setNotif({
-          message: err.response.data.message,
-          status: 'error',
-        });
+      const res = await axios.get('http://localhost:5000/login', body, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+
+    // await login(body)
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (res.status === 200) {
+    //       setNotif({
+    //         message: res.data.message,
+    //         status: 'success',
+    //       });
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     setNotif({
+    //       message: err.response.data.message,
+    //       status: 'error',
+    //     });
+    //   });
   };
 
   return (
@@ -42,11 +56,11 @@ export default function Login() {
       </p>
       <h1>Login </h1>
       <form style={styles.form}>
-        <label htmlFor="">Name</label>
+        <label htmlFor="">Email</label>
         <input
           type="text"
           style={styles.input}
-          placeholder="Enter your name"
+          placeholder="Enter your Email"
           onChange={(e) => setEmail(e.target.value)}
         />
         <label htmlFor="">Password</label>
@@ -60,7 +74,7 @@ export default function Login() {
           Login
         </button>
       </form>
-      <Link to="/register">Don't have an account yet?</Link>
+      <Link to="/register">Don&apos;t have an account yet?</Link>
     </div>
   );
 }
