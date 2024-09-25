@@ -16,8 +16,8 @@ const usePost = () => {
   };
   const updateProduct = async (id, body) => {
     try {
-      const res = await axios.post(
-        `http://localhost:5000/products/${id}`,
+      const res = await axios.patch(
+        `http://localhost:5000/product/${id}`,
         body,
         {
           headers: {

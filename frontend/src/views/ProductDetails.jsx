@@ -44,6 +44,12 @@ export default function ProductsDetails() {
         message: 'Something went wrong',
         status: 'error',
       });
+      setTimeout(() => {
+        setNotif({
+          message: '',
+          status: '',
+        });
+      }, 2000);
     }
   };
   return (
@@ -70,23 +76,24 @@ export default function ProductsDetails() {
           borderRadius: '10px',
           boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
         }}>
+        {notif.message && (
+          <div
+            style={{
+              padding: '10px',
+              borderRadius: '5px',
+              backgroundColor: notif.status === 'success' ? 'green' : 'red',
+              color: 'white',
+              margin: '10px 0',
+            }}>
+            {notif.message}
+          </div>
+        )}
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          {notif.message && (
-            <div
-              style={{
-                padding: '10px',
-                borderRadius: '5px',
-                backgroundColor: notif.status === 'success' ? 'green' : 'red',
-                color: 'white',
-              }}>
-              {notif.message}
-            </div>
-          )}
           <h1>Update Product</h1>
           <button
             type="button"
