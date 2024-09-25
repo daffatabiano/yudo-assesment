@@ -22,7 +22,7 @@ router.get('/user/:id', getUserById);
 router.post('/users', createUser);
 router.patch('/user/:id', updateUser);
 router.delete('/user/:id', deleteUser);
-router.get('/login', Login);
+router.post('/login', Login);
 
 router.get('/products', getProducts);
 router.get('/product/:id', getProductById);
