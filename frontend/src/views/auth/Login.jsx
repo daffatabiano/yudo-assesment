@@ -28,6 +28,11 @@ export default function Login() {
           status: 'success',
         });
         localStorage.setItem('profile', JSON.stringify(res.data.data));
+      } else {
+        setNotif({
+          message: res.response.data.message,
+          status: 'error',
+        });
       }
     } catch (error) {
       console.log(error);

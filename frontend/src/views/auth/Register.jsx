@@ -24,7 +24,9 @@ export default function Register() {
         });
       } else {
         setNotify({
-          message: 'Sorry, Email has already been registered',
+          message:
+            res.response.data.message ||
+            'Something went wrong, please try again',
           status: 'error',
         });
       }
