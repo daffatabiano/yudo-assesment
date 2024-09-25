@@ -1,15 +1,48 @@
 import useFetch from '../hooks/useFetch';
-import Layout from '../layout';
 import LayoutDashbaord from '../layout/LayoutDashboard';
 import { styles } from './views.style';
 
 const cardItems = [
   {
     title: 'Total Product',
-    content: (item) => {
+    content: (products) => {
+      console.log(products);
+      const colors = products?.map((item) =>
+        item.is_active ? '#00ff00' : '#ff0000'
+      );
       return (
-        <div>
-          <p>{item.length}</p>
+        <div style={{ width: '100%' }}>
+          <p style={{ margin: '0', fontWeight: 'bold', textAlign: 'center' }}>
+            Total : {products?.length}
+          </p>
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '5px',
+              padding: '10px',
+            }}>
+            <div
+              style={{
+                position: 'absolute',
+                top: '5px',
+                right: '5px',
+                width: '20px',
+                height: '20px',
+                backgroundColor: colors,
+                borderRadius: '50%',
+                display: 'flex',
+              }}
+            />
+            <h4>Product: </h4>
+            <p>{products?.map((item) => item.name)}</p> <h5>Vendor:</h5>
+            <p>{products?.map((item) => item.vendor)}</p>
+            <h5>Category:</h5>
+            <p>{products?.map((item) => item.category)}</p>
+            <hr style={{ width: '100%', margin: '10px 0' }} />
+          </div>
         </div>
       );
     },
@@ -17,27 +50,101 @@ const cardItems = [
   {
     title: 'Newest Product',
     content: (item) => {
+      const newest = item?.sort((a, b) => b.created_at - a.created_at);
+      const colors = newest
+        ?.slice(0, 3)
+        ?.map((item) => (item.is_active ? '#00ff00' : '#ff0000'));
+
       return (
-        <div>
-          <p>
-            {item
-              .filter((i) => i.createdAt >= new Date())
-              .map((item) => item.name)}
-          </p>{' '}
+        <div style={{ width: '100%' }}>
+          <p style={{ margin: '0', fontWeight: 'bold', textAlign: 'center' }}>
+            Displaying 3 newest product
+          </p>
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '5px',
+              padding: '10px',
+            }}>
+            <div
+              style={{
+                position: 'absolute',
+                top: '5px',
+                right: '5px',
+                width: '20px',
+                height: '20px',
+                backgroundColor: colors,
+                borderRadius: '50%',
+                display: 'flex',
+              }}
+            />
+            <h4>Product: </h4>
+            <p>{newest?.slice(0, 3)?.map((item) => item.name)}</p>{' '}
+            <h5>Vendor:</h5>
+            <p>{newest?.slice(0, 3)?.map((item) => item.vendor)}</p>
+            <h5>Category:</h5>
+            <p>{newest?.slice(0, 3)?.map((item) => item.category)}</p>
+            <hr style={{ width: '100%', margin: '10px 0' }} />
+          </div>
         </div>
       );
     },
   },
   {
     title: 'Active & Inactive Product',
-    content: () => {},
+    content: (item) => {
+      return (
+        <div style={{ width: '100%' }}>
+          <div
+            style={{
+              display: 'flex ',
+              gap: '10px',
+              fontWeight: 'bold',
+              textAlign: 'center',
+            }}>
+            <p>Active: {item?.filter((item) => item.is_active).length}</p>
+            <p>Inactive: {item?.filter((item) => !item.is_active).length}</p>
+          </div>
+          <div>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '5px',
+                padding: '10px',
+              }}>
+              <h4>Product: </h4>
+              <p>
+                {item
+                  ?.filter((item) => item.is_active)
+                  .map((item) => item.name)}
+              </p>
+              <h5>Vendor:</h5>
+              <p>
+                {item
+                  ?.filter((item) => item.is_active)
+                  .map((item) => item.vendor)}
+              </p>
+              <h5>Category:</h5>
+              <p>
+                {item
+                  ?.filter((item) => item.is_active)
+                  .map((item) => item.category)}
+              </p>
+              <hr style={{ width: '100%', margin: '10px 0' }} />
+            </div>
+          </div>
+        </div>
+      );
+    },
   },
 ];
 
 export default function Dashboard() {
   const { data, loading, error } = useFetch('products');
-
-  console.log(data?.data.map((item) => item.created_at));
 
   return (
     <LayoutDashbaord>
