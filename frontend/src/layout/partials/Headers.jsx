@@ -4,12 +4,12 @@ const headerLists = [
     link: '/',
   },
   {
-    title: 'About',
-    link: '#about',
-  },
-  {
     title: 'Products',
     link: '#products',
+  },
+  {
+    title: 'Profile',
+    link: '/profile',
   },
 ];
 
@@ -42,7 +42,14 @@ export default function Headers() {
         alignItems: 'center',
       }}>
       <div>
-        <h1>Logo</h1>
+        <h1
+          style={{
+            margin: '0',
+            fontSize: '20px',
+            fontWeight: 'bold',
+          }}>
+          Portal-Jono
+        </h1>
       </div>
       <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
         <ul
