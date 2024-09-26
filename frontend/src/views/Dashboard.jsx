@@ -6,7 +6,6 @@ const cardItems = [
   {
     title: 'Total Product',
     content: (products) => {
-      console.log(products);
       const colors = products?.map((item) =>
         item.is_active ? '#00ff00' : '#ff0000'
       );

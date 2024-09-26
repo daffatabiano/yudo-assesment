@@ -32,7 +32,16 @@ const usePost = () => {
     }
   };
 
-  return { createProduct, updateProduct };
+  const deleteProduct = async (id) => {
+    try {
+      const res = await axios.delete(`http://localhost:5000/product/${id}`);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  return { createProduct, updateProduct, deleteProduct };
 };
 
 export default usePost;

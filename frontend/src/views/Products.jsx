@@ -6,9 +6,16 @@ import { styles as stylesAuth } from './auth/styles.auth';
 import usePost from '../hooks/usePost';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-const Card = ({ id, total, active, vendor, category, name, price }) => {
-  const { navigate } = useNavigate();
-
+const Card = ({
+  id,
+  total,
+  active,
+  vendor,
+  category,
+  name,
+  price,
+  showModalDelete,
+}) => {
   return (
     <div style={{ ...styles.card, minHeight: '40vh' }}>
       <p style={{ margin: '0', fontWeight: 'bold', textAlign: 'center' }}>
@@ -45,6 +52,7 @@ const Card = ({ id, total, active, vendor, category, name, price }) => {
           </Link>
           <button
             type="button"
+            onClick={() => showModalDelete(id)}
             style={{ ...styles.button, backgroundColor: '#ff0000' }}>
             Delete
           </button>
@@ -85,7 +93,13 @@ const Card = ({ id, total, active, vendor, category, name, price }) => {
   );
 };
 
-const Modal = ({ title, setShowModal, showModal, handleCreateProduct }) => {
+const Modal = ({
+  title,
+  setShowModal,
+  showModal,
+  handleCreateProduct,
+  notify,
+}) => {
   return (
     <div
       style={{
@@ -116,6 +130,14 @@ const Modal = ({ title, setShowModal, showModal, handleCreateProduct }) => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
+          <p
+            style={{
+              color: notify.status ? 'green' : 'red',
+              display: notify.status ? 'block' : 'none',
+              textAlign: 'center',
+            }}>
+            {notify.message}
+          </p>
           <h1>{title} Product</h1>
           <button
             type="button"
@@ -206,10 +228,103 @@ const Modal = ({ title, setShowModal, showModal, handleCreateProduct }) => {
   );
 };
 
+const ModalDelete = ({
+  setShowModal,
+  showModal,
+  handleDeleteProduct,
+  notify,
+}) => {
+  return (
+    <div
+      style={{
+        position: showModal ? 'fixed' : 'hidden',
+        display: showModal ? 'block' : 'none',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        zIndex: '9999',
+      }}>
+      <div
+        style={{
+          position: 'absolute',
+          display: showModal ? 'block' : 'none',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          backgroundColor: 'white',
+          padding: '20px',
+          borderRadius: '10px',
+          boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
+        }}>
+        <p
+          style={{
+            color: 'green',
+            display: notify.status ? 'block' : 'none',
+            textAlign: 'center',
+          }}>
+          {notify.message}
+        </p>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <h1>Delete Product</h1>
+          <button
+            type="button"
+            onClick={() => setShowModal(false)}
+            style={{ backgroundColor: 'transparent', border: 'none' }}>
+            Close
+          </button>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+            marginTop: '20px',
+          }}>
+          <p>Are you sure want to delete this product?</p>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              marginTop: '20px',
+              gap: '10px',
+            }}>
+            <button
+              type="button"
+              onClick={() => setShowModal(false)}
+              style={{
+                ...styles.button,
+                width: '100px',
+                backgroundColor: 'red',
+              }}>
+              Close
+            </button>
+            <button
+              type="button"
+              onClick={handleDeleteProduct}
+              style={{ ...styles.button, width: '100px' }}>
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function Products() {
   const { data } = useFetch('products');
   const [showModalCreate, setShowModalCreate] = useState(false);
-  const { createProduct } = usePost();
+  const [showModalDelete, setShowModalDelete] = useState(false);
+  const { createProduct, deleteProduct } = usePost();
+  const [notify, setNotify] = useState({});
+  const [id, setId] = useState();
 
   const handleCreateProduct = async (e) => {
     e.preventDefault();
@@ -219,16 +334,65 @@ export default function Products() {
     const qty = e.target.qty.value;
     const price = e.target.price.value;
     const res = await createProduct({ name, category, vendor, qty, price });
-    console.log(res);
+
     if (res.status === 201) {
-      setShowModalCreate(false);
+      setNotify({
+        message: 'Product created successfully',
+        status: 'success',
+      });
+      setTimeout(() => {
+        setNotify({});
+        setShowModalCreate(false);
+      }, 2000);
+    } else {
+      setNotify({
+        message: 'Something went wrong',
+        status: 'error',
+      });
+      setTimeout(() => {
+        setNotify({});
+      }, 2000);
     }
+  };
+
+  const handleDeleteProduct = async () => {
+    const res = await deleteProduct(id);
+    if (res.status === 200) {
+      setShowModalDelete(false);
+      setNotify({
+        message: 'Product deleted successfully',
+        status: 'success',
+      });
+      setTimeout(() => {
+        setNotify({});
+      }, 2000);
+    } else {
+      setNotify({
+        message: 'Something went wrong',
+        status: 'error',
+      });
+      setTimeout(() => {
+        setNotify({});
+      }, 2000);
+    }
+  };
+
+  const handleDelete = (id) => {
+    setShowModalDelete(true);
+    setId(id);
   };
 
   return (
     <LayoutDashbaord>
+      <ModalDelete
+        showModal={showModalDelete}
+        setShowModal={setShowModalDelete}
+        handleDeleteProduct={handleDeleteProduct}
+        notify={notify}
+      />
       <Modal
         title={'Create'}
+        notify={notify}
         showModal={showModalCreate}
         setShowModal={setShowModalCreate}
         handleCreateProduct={handleCreateProduct}
@@ -276,6 +440,7 @@ export default function Products() {
               name={item.name}
               id={item.id}
               price={item.price}
+              showModalDelete={handleDelete(item.id)}
             />
           ))}
         </div>

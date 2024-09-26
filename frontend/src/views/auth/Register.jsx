@@ -28,7 +28,6 @@ export default function Register() {
       }
 
       const res = await register(body);
-      console.log(res);
       if (res.status === 201) {
         setNotify({
           message: 'Registration successful !',

@@ -9,8 +9,6 @@ export default function Profile() {
     return <Navigate to="/login" />;
   }
 
-  console.log(profile);
-
   return (
     <Layout>
       <div style={styles.container}>

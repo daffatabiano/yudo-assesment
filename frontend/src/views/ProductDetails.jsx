@@ -24,7 +24,6 @@ export default function ProductsDetails() {
     const qty = e.target.qty.value;
     const price = e.target.price.value;
     const res = await updateProduct(id, { name, category, vendor, qty, price });
-    console.log(res);
     if (res.status === 201) {
       setNotif({
         message: 'Product updated successfully',
