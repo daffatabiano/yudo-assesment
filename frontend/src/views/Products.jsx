@@ -6,7 +6,7 @@ import { styles as stylesAuth } from './auth/styles.auth';
 import usePost from '../hooks/usePost';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-const Card = ({ id, total, active, vendor, category, name }) => {
+const Card = ({ id, total, active, vendor, category, name, price }) => {
   const { navigate } = useNavigate();
 
   return (
@@ -23,6 +23,10 @@ const Card = ({ id, total, active, vendor, category, name }) => {
           gap: '5px',
           padding: '10px',
         }}>
+        <p style={{ margin: '0', fontWeight: 'bold', textAlign: 'center' }}>
+          {name}
+        </p>
+        <h3 style={{ margin: '0', textAlign: 'center' }}>Rp.{price}</h3>
         <div
           style={{
             display: 'flex',
@@ -45,9 +49,6 @@ const Card = ({ id, total, active, vendor, category, name }) => {
             Delete
           </button>
         </div>
-        <p style={{ margin: '0', fontWeight: 'bold', textAlign: 'center' }}>
-          {name}
-        </p>
         <div
           style={{
             display: 'flex',
@@ -274,6 +275,7 @@ export default function Products() {
               category={item.category}
               name={item.name}
               id={item.id}
+              price={item.price}
             />
           ))}
         </div>
