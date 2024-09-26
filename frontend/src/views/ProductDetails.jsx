@@ -16,8 +16,6 @@ export default function ProductsDetails() {
   });
   const navigate = useNavigate();
 
-  console.log(data.data);
-
   const handleUpdateProduct = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;
