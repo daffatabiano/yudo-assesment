@@ -3,7 +3,7 @@ import Layout from '../layout';
 import { styles } from './views.style';
 
 export default function Home() {
-  const { data, error } = useFetch('products');
+  const { data } = useFetch('products');
 
   const formatter = (num) => {
     return new Intl.NumberFormat('id-ID', {
