@@ -4,22 +4,15 @@ import LayoutDashbaord from '../layout/LayoutDashboard';
 import { styles } from './views.style';
 import { styles as stylesAuth } from './auth/styles.auth';
 import usePost from '../hooks/usePost';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const Card = ({
-  id,
-  total,
-  active,
-  vendor,
-  category,
-  name,
-  price,
-  showModalDelete,
-}) => {
+const Card = (props) => {
+  console.log(props, 'props');
+
   return (
     <div style={{ ...styles.card, minHeight: '40vh' }}>
       <p style={{ margin: '0', fontWeight: 'bold', textAlign: 'center' }}>
-        {active ? 'Active' : 'Inactive'} Products : {total}
+        {props.active ? 'Active' : 'Inactive'} Products : {props.total}
       </p>
       <div
         style={{
@@ -33,7 +26,7 @@ const Card = ({
         <p style={{ margin: '0', fontWeight: 'bold', textAlign: 'center' }}>
           {name}
         </p>
-        <h3 style={{ margin: '0', textAlign: 'center' }}>Rp.{price}</h3>
+        <h3 style={{ margin: '0', textAlign: 'center' }}>Rp.{props.price}</h3>
         <div
           style={{
             display: 'flex',
@@ -42,7 +35,7 @@ const Card = ({
             margin: '10px',
           }}>
           <Link
-            to={`/dashboard/product/${id}`}
+            to={`/dashboard/product/${props.id}`}
             style={{
               ...styles.button,
               textAlign: 'center',
@@ -52,7 +45,7 @@ const Card = ({
           </Link>
           <button
             type="button"
-            onClick={() => showModalDelete(id)}
+            onClick={() => props.showModalDelete(props.id)}
             style={{ ...styles.button, backgroundColor: '#ff0000' }}>
             Delete
           </button>
@@ -64,7 +57,7 @@ const Card = ({
             padding: '10px',
           }}>
           <p style={{ margin: '0', fontWeight: 'bold', textAlign: 'center' }}>
-            {vendor}
+            {props.vendor}
           </p>
           <p
             style={{
@@ -73,7 +66,7 @@ const Card = ({
               textAlign: 'center',
               fontStyle: 'italic',
             }}>
-            {category}
+            {props.category}
           </p>
         </div>
         <div
@@ -84,7 +77,7 @@ const Card = ({
             borderRadius: '5px',
             width: '100%',
             height: '10px',
-            backgroundColor: active ? '#00ff00' : '#ff0000',
+            backgroundColor: props.active ? '#00ff00' : '#ff0000',
             display: 'flex',
           }}
         />
@@ -132,11 +125,11 @@ const Modal = ({
           }}>
           <p
             style={{
-              color: notify.status ? 'green' : 'red',
-              display: notify.status ? 'block' : 'none',
+              color: notify?.status ? 'green' : 'red',
+              display: notify?.status ? 'block' : 'none',
               textAlign: 'center',
             }}>
-            {notify.message}
+            {notify?.message}
           </p>
           <h1>{title} Product</h1>
           <button
@@ -433,14 +426,8 @@ export default function Products() {
           {data?.data?.map((item) => (
             <Card
               key={item.id}
-              total={item.is_active}
-              active={item.is_active}
-              vendor={item.vendor}
-              category={item.category}
-              name={item.name}
-              id={item.id}
-              price={item.price}
-              showModalDelete={handleDelete(item.id)}
+              {...item}
+              showModalDelete={() => handleDelete(item.id)}
             />
           ))}
         </div>
