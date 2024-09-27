@@ -1,0 +1,8 @@
+{
+  "username": "root",
+  "password": "",
+  "database": "test-yodu",
+  "host": "localhost",
+  "dialect": "mysql",
+  "env": "development"
+}
