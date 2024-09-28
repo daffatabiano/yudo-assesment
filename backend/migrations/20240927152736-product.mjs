@@ -1,63 +1,54 @@
 'use strict';
 
+const { DataTypes } = require('sequelize');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable(
-      'product',
-      {
-        id: {
-          type: Sequelize.BIGINT,
-          primaryKey: true,
-          autoIncrement: true,
-          allowNull: false,
-        },
-        vendor: {
-          type: Sequelize.STRING(50),
-          allowNull: false,
-          required: true,
-        },
-        name: {
-          type: Sequelize.STRING(50),
-          allowNull: false,
-          unique: true,
-          required: true,
-        },
-        category: {
-          type: Sequelize.STRING(10),
-          allowNull: false,
-          required: true,
-        },
-        qty: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-        },
-        price: {
-          type: Sequelize.FLOAT,
-          allowNull: false,
-        },
-        is_active: {
-          type: Sequelize.TINYINT,
-          allowNull: false,
-        },
-        created_at: {
-          type: Sequelize.DATE,
-          allowNull: false,
-        },
-        updated_at: {
-          type: Sequelize.DATE,
-          allowNull: true,
-        },
+    return queryInterface.createTable('products', {
+      id: {
+        type: DataTypes.BIGINT,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
       },
-      {
-        timestamps: false,
-        freezeTableName: true,
-        tableName: 'product',
-        force: true,
-      }
-    );
+      vendor: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        required: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        required: true,
+      },
+      category: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        required: true,
+      },
+      qty: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      price: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
+      is_active: {
+        type: DataTypes.TINYINT,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+    });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('product');
+    return queryInterface.dropTable('products');
   },
 };

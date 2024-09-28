@@ -30,6 +30,13 @@ Jalankan migrasi:
 npx sequelize-cli db:migrate
 ```
 
+dan aktifkan XAMPP
+
+```
+apache : start
+mySQL : start
+```
+
 Jalankan server:
 
 ```
